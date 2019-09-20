@@ -4,8 +4,8 @@
   "description": "react.js + flux + semantic-ui",
   "main": "index.js",
   "scripts": {
-    "start": ".\\node_modules\\.bin\\webpack-dev-server.cmd --mode development --open",
-    "build": ".\\node_modules\\.bin\\webpack.cmd --mode production",
+    "start": "npx webpack-dev-server --mode development --open",
+    "build": "npx webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
