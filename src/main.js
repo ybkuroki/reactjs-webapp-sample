@@ -6,6 +6,6 @@ import 'semantic-ui-css/semantic.css'
 import App from './app.js'
 
 render(
-    <App />,
-    document.getElementById("app")
+  <App />,
+  document.getElementById("app")
 );

@@ -2,10 +2,10 @@ import React from 'react'
 import SelectItem from 'components/selectitem.js'
 
 export default class SelectBox extends React.Component {
-	
+
 	constructor(props) {
 		super(props)
-		
+
 		this.setWrapperRef = this.setWrapperRef.bind(this);
 		this.clickItem = this.clickItem.bind(this)
 		this.clickDropdown = this.clickDropdown.bind(this)
@@ -20,13 +20,13 @@ export default class SelectBox extends React.Component {
 	setWrapperRef(node) {
 		this.wrapperRef = node;
 	}
-	
+
 	componentDidMount() {
 		// @see https://codeday.me/jp/qa/20190228/339228.html
 		// ドロップダウンの外側をクリック時に閉じる動作
 		this.listen(window, 'click', function (e) {
 			if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-				this.setState({isActive : false})
+				this.setState({ isActive: false })
 			}
 		}.bind(this))
 	}
@@ -44,15 +44,15 @@ export default class SelectBox extends React.Component {
 		// ドロップダウンクリック時の項目リスト表示可否判定
 		this.state.isActive == false ? this.setState({ isActive: true }) : this.setState({ isActive: false })
 	}
-	
-    clickItem(index) {
+
+	clickItem(index) {
 		this.setState({ value: index })
 		var value = this.props.options.find((option) => option.id == index).name
 		this.setState({ selectedValue: value })
-        
-        if(this.props.onChangeSelect) {
-        	this.props.onChangeSelect(index)
-        }
+
+		if (this.props.onChangeSelect) {
+			this.props.onChangeSelect(index)
+		}
 	}
 
 	listen(target, eventType, callback) {
@@ -68,11 +68,11 @@ export default class SelectBox extends React.Component {
 		})
 	}
 
-    render() {
+	render() {
 		var lists = this.props.options.map((list) => {
 			return <SelectItem name={list.name} key={list.id} selected={list.id == this.state.value} value={list.id} clickItem={this.clickItem} />;
 		});
-		
+
 		// 初期値を設定
 		var defaultValue = this.props.options.find((option) => option.id == this.state.value)
 
@@ -81,12 +81,12 @@ export default class SelectBox extends React.Component {
 				<label>{this.props.title}</label>
 				<div className={['ui selection dropdown', this.state.isActive ? 'active visible' : ''].join(' ')} onClick={this.clickDropdown}>
 					<i className="dropdown icon"></i>
-					<div className="text">{this.state.selectedValue == '' && defaultValue ? defaultValue.name : this.state.selectedValue }</div>
+					<div className="text">{this.state.selectedValue == '' && defaultValue ? defaultValue.name : this.state.selectedValue}</div>
 					<div className={['menu transition', this.state.isActive ? 'visible' : ''].join(' ')} styles={this.state.isActive ? 'display: block !important' : ''}>
 						{lists}
 					</div>
 				</div>
-	        </div>
+			</div>
 		);
 	}
 }
